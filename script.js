@@ -21,24 +21,27 @@ function drawBoard() {
 drawBoard();
 
 
-function playerMove() {
-  const player1Move = prompt("Player 1 type a number from the board.");
-  const parsePlayer1Move = parseInt(player1Move);
-  if (board.includes(parsePlayer1Move)) {
-    let index = board.indexOf(parsePlayer1Move);
+
+
+function playerOneMoveFunc() {
+  const playerOneMove = prompt("Player 1 type a number from the board.");
+  const parsePlayerOneMove = parseInt(playerOneMove);
+  if (board.includes(parsePlayerOneMove)) {
+    let index = board.indexOf(parsePlayerOneMove);
     board[index] = playerOne;
     drawBoard();
   }
+  playerTwoMoveFunc();
+}
+playerOneMoveFunc();
 
-  const player2Move = prompt("Player 2 type a number form the board");
-  const parsePlayer2Move = parseInt(player2Move);
-  if (board.includes(parsePlayer2Move)) {
-    let index = board.indexOf(parsePlayer2Move);
-    board[index] = player2;
+function playerTwoMoveFunc() {
+  const playerTwoMove = prompt("Player 2 type a number form the board");
+  const parsePlayerTwoMove = parseInt(playerTwoMove);
+  if (board.includes(parsePlayerTwoMove)) {
+    let index = board.indexOf(parsePlayerTwoMove);
+    board[index] = playerTwo;
     drawBoard();
   }
-}
-
-for (let i = 0; i < 9; i++) {
-    playerMove();
+  playerOneMoveFunc();
 }
