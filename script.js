@@ -8,14 +8,6 @@ if (playerOne == "O") {
 }
 console.log(`Player one is ${playerOne} and player two is ${playerTwo}`);
 
-function result(player) {
-  console.log(`GAME OVER!! ${player} won`)
-}
-
-if ((board[0], board[1], board[2]) || (board[3], board[4], board[5]) || (board[6], board[7], board[8]) || (board[0], board[3], board[6]) || (board[1], board[4], board[7]) || (board[2], board[5], board[8]) || (board[0], board[4], board[8]) || (board[2], board[4], board[6]) === playerOne || playerTwo ) {
-  result(playerOne || playerTwo);
-}
-
 let board = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 function drawBoard() {
   console.log(`
@@ -27,7 +19,20 @@ function drawBoard() {
 }
 drawBoard();
 
+const winningPattern = ((board[0] && board[1] && board[2]) ||
+(board[3] && board[4] && board[5]) ||
+(board[6] && board[7] && board[8]) ||
+(board[0] && board[3] && board[6]) ||
+(board[1] && board[4] && board[7]) ||
+(board[2] && board[5] && board[8]) ||
+(board[0] && board[4] && board[8]) ||
+(board[2] && board[4] && board[6]));
+
+
 function playerOneMoveFunc() {
+  if (winningPattern === (playerOne || playerTwo)) {
+    return result();
+  }
   const playerOneMove = prompt("Player 1 type a number from the board.");
   const parsePlayerOneMove = parseInt(playerOneMove);
   if (board.includes(parsePlayerOneMove)) {
@@ -39,6 +44,10 @@ function playerOneMoveFunc() {
 }
 
 function playerTwoMoveFunc() {
+  if (winningPattern === (playerOne || playerTwo)) {
+    console.log(`GAME OVER!! ${playerOne || playerTwo} won`);
+    return;
+  }
   const playerTwoMove = prompt("Player 2 type a number form the board");
   const parsePlayerTwoMove = parseInt(playerTwoMove);
   if (board.includes(parsePlayerTwoMove)) {
@@ -48,8 +57,9 @@ function playerTwoMoveFunc() {
     playerOneMoveFunc();
   }
 }
-  playerOneMoveFunc();
+playerOneMoveFunc();
 
-
-
-
+function result() {
+  console.log(`GAME OVER!! ${playerOne || playerTwo} won`);
+}
+result();
