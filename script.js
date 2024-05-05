@@ -20,9 +20,6 @@ function drawBoard() {
 }
 drawBoard();
 
-
-
-
 function playerOneMoveFunc() {
   const playerOneMove = prompt("Player 1 type a number from the board.");
   const parsePlayerOneMove = parseInt(playerOneMove);
@@ -30,10 +27,9 @@ function playerOneMoveFunc() {
     let index = board.indexOf(parsePlayerOneMove);
     board[index] = playerOne;
     drawBoard();
+    playerTwoMoveFunc();
   }
-  playerTwoMoveFunc();
 }
-playerOneMoveFunc();
 
 function playerTwoMoveFunc() {
   const playerTwoMove = prompt("Player 2 type a number form the board");
@@ -42,6 +38,8 @@ function playerTwoMoveFunc() {
     let index = board.indexOf(parsePlayerTwoMove);
     board[index] = playerTwo;
     drawBoard();
+    playerOneMoveFunc();
   }
-  playerOneMoveFunc();
 }
+  playerOneMoveFunc();
+
