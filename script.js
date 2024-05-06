@@ -19,8 +19,8 @@ function drawBoard() {
 }
 drawBoard();
 
-var patternOne = [board[0], board[1], board[2]];
-let patternTwo = [board[3], board[4], board[5]];
+var patternOne = [board[0] && board[1] && board[2]];
+let patternTwo = [board[3] && board[4]&& board[5]];
 let patternThree = [board[6], board[7], board[8]];
 let patternFour = [board[0], board[3], board[6]];
 let patternFive = [board[1], board[4], board[7]];
