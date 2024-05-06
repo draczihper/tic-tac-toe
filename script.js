@@ -53,3 +53,8 @@ function playerTwoMoveFunc() {
 playerOneMoveFunc();
 
 
+function checkResult() {
+  if() {
+    
+  }
+}
