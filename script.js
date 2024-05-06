@@ -19,20 +19,17 @@ function drawBoard() {
 }
 drawBoard();
 
-const winningPattern = ((board[0] && board[1] && board[2]) ||
-(board[3] && board[4] && board[5]) ||
-(board[6] && board[7] && board[8]) ||
-(board[0] && board[3] && board[6]) ||
-(board[1] && board[4] && board[7]) ||
-(board[2] && board[5] && board[8]) ||
-(board[0] && board[4] && board[8]) ||
-(board[2] && board[4] && board[6]));
+var patternOne = [board[0], board[1], board[2]];
+let patternTwo = [board[3], board[4], board[5]];
+let patternThree = [board[6], board[7], board[8]];
+let patternFour = [board[0], board[3], board[6]];
+let patternFive = [board[1], board[4], board[7]];
+let patternSix = [board[2], board[5], board[8]]; 
+let patternSeven = [board[0], board[4], board[8]];
+let patternEight = [board[2], board[4], board[6]];
 
 
 function playerOneMoveFunc() {
-  if (winningPattern === (playerOne || playerTwo)) {
-    return result();
-  }
   const playerOneMove = prompt("Player 1 type a number from the board.");
   const parsePlayerOneMove = parseInt(playerOneMove);
   if (board.includes(parsePlayerOneMove)) {
@@ -44,10 +41,6 @@ function playerOneMoveFunc() {
 }
 
 function playerTwoMoveFunc() {
-  if (winningPattern === (playerOne || playerTwo)) {
-    console.log(`GAME OVER!! ${playerOne || playerTwo} won`);
-    return;
-  }
   const playerTwoMove = prompt("Player 2 type a number form the board");
   const parsePlayerTwoMove = parseInt(playerTwoMove);
   if (board.includes(parsePlayerTwoMove)) {
@@ -59,7 +52,4 @@ function playerTwoMoveFunc() {
 }
 playerOneMoveFunc();
 
-function result() {
-  console.log(`GAME OVER!! ${playerOne || playerTwo} won`);
-}
-result();
+
