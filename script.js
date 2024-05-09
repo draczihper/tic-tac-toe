@@ -1,3 +1,4 @@
+const allequal = arr => arr.every(v => v !== " " &&  v === arr[0]);
 const readline = require("readline");
 const board = [
   [" ", " ", " "]
@@ -11,6 +12,8 @@ let combo = {
   row: undefined,
   col: undefined
 }
+let winner = "";
+let gameOver = false;
 
 
 
@@ -20,10 +23,51 @@ const game = {
     m = this.possibleMoves();
   },
   isGameOver: function() {
+    if(allequal(board[0])){
+      gameOver = true;
+  winner = board[0][0]
 
+}
+if(allequal(board[1])){
+      gameOver = true;
+winner = board[1][0]
+
+}
+if(allequal(board[2])){
+          gameOver = true;
+winner = board[2][0]
+
+}
+
+if(allequal([board[0][0], board[1][0], board[2][0]])){
+        gameOver = true;
+ winner = board[0][0]
+}
+if(allequal([board[0][1], board[1][1], board[2][1]])){
+        gameOver = true;
+winner = board[0][1]
+}
+if(allequal([board[0][2], board[1][2], board[2][2]])){
+        gameOver = true;
+winner = board[0][2]
+}
+ if(allequal([board[0][0], board[1][1], board[2][2]])){
+        gameOver = true;
+winner = board[0][0]
+}
+   if(allequal([board[0][2], board[1][1], board[2][0]])){
+        gameOver = true;
+ winner = board[0][2]
+}
   },
   move: function(c) {
-
+    board[+c.row][+c.col] = "x";
+    combo.row = undefined;
+    combo.col = undefined;
+    this.update();
+    setTimeout(() => {
+      this.computer();
+    }, 3000);
   },
   possibleMoves: function() {
     const p = [];
@@ -53,3 +97,25 @@ const game = {
     });
   },
 }
+
+readline.emitKeypressEvents(process.stdin);
+process.stdin.setRawMode(true);
+
+process.stdin.on('keypress', (str, key) => {
+  if (key.ctrl && key.name === 'c') {
+    process.exit();
+  } else {
+    if(turn) {
+      if(combo.row){
+        combo.col = key.name;
+        turn = false;
+        game.move(combo)
+      } else {
+        combo.row = key.name;
+      }
+    } else {
+      console.log("Wait for your turn");
+      
+    }
+  }
+});
