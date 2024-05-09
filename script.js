@@ -1,9 +1,9 @@
 const allequal = arr => arr.every(v => v !== " " &&  v === arr[0]);
 const readline = require("readline");
 const board = [
-  [" ", " ", " "]
-  [" ", " ", " "]
-  [" ", " ", " "]
+  [" ", " ", " "],
+  [" ", " ", " "],
+  [" ", " ", " "],
 ];
 
 let m = [];
@@ -19,8 +19,19 @@ let gameOver = false;
 
 const game = {
   update: function() {
+    this.isGameOver();
+    if(gameOver) {
+      this.updateBoard();
+      console.log(`Game over ${winner} won!`)
+      process.exit();
+    }
     this.updateBoard();
     m = this.possibleMoves();
+    if(m.length === 0) {
+      gameOver = true;
+      console.log("Game over by draw")
+      process.exit();
+    }
   },
   isGameOver: function() {
     if(allequal(board[0])){
