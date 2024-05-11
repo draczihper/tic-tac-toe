@@ -1,4 +1,5 @@
-const allequal = arr => arr.every(v => v !== " " &&  v === arr[0]);
+const allEqual
+ = arr => arr.every(v => v !== " " &&  v === arr[0]);
 const readline = require("readline");
 const board = [
   [" ", " ", " "],
@@ -34,39 +35,47 @@ const game = {
     }
   },
   isGameOver: function() {
-    if(allequal(board[0])){
+    if(allEqual
+      (board[0])){
       gameOver = true;
   winner = board[0][0]
 
 }
-if(allequal(board[1])){
+if(allEqual
+  (board[1])){
       gameOver = true;
 winner = board[1][0]
 
 }
-if(allequal(board[2])){
+if(allEqual
+  (board[2])){
           gameOver = true;
 winner = board[2][0]
 
 }
 
-if(allequal([board[0][0], board[1][0], board[2][0]])){
+if(allEqual
+  ([board[0][0], board[1][0], board[2][0]])){
         gameOver = true;
  winner = board[0][0]
 }
-if(allequal([board[0][1], board[1][1], board[2][1]])){
+if(allEqual
+  ([board[0][1], board[1][1], board[2][1]])){
         gameOver = true;
 winner = board[0][1]
 }
-if(allequal([board[0][2], board[1][2], board[2][2]])){
+if(allEqual
+  ([board[0][2], board[1][2], board[2][2]])){
         gameOver = true;
 winner = board[0][2]
 }
- if(allequal([board[0][0], board[1][1], board[2][2]])){
+ if(allEqual
+  ([board[0][0], board[1][1], board[2][2]])){
         gameOver = true;
 winner = board[0][0]
 }
-   if(allequal([board[0][2], board[1][1], board[2][0]])){
+   if(allEqual
+    ([board[0][2], board[1][1], board[2][0]])){
         gameOver = true;
  winner = board[0][2]
 }
