@@ -1,100 +1,40 @@
-const GameBoard = (function () {
-  const board = [];
-
-  function resetBoard() {
-    board.length = 0;
-    for (let i = 0; i < 3; i++) {
-      board[i] = new Array(3).fill(null);
-    }
-  }
-
-  function placeMark(row, col, mark) {
-    if (board[row][col] === null) {
-      board[row][col] = mark;
-      return true;
-    }
-    return false;
-  }
-
-  function checkWin(mark) {
-    // Check rows
-    for (let i = 0; i < 3; i++) {
-      if (board[i].every((cell) => cell === mark)) {
-        return true;
+const game = (() => {
+  const gameBoard = () => {
+    return {
+      board: ['', '', '', '', '', '', '', '', ''],
+      makeMove(index, player) {
+        if (this.board[i] === '') {
+          this.board[i] = player;
+          return true; 
+        }
+        return false;
+      },
+      checkWinner () {
+        const winningCombinations = [
+          [0, 1, 2], [3, 4, 5], [6, 7, 8] // Rows
+          [0, 3, 6], [1, 4, 7], [2, 5, 8] // Columns
+          [0, 4, 8], [2, 4, 6] // Diagonals
+        ];
+        for (const combo of winningCombinations) {
+          const [a, b, c] = combo;
+          if (
+            this.board[a] && 
+            this.board[a] === this.board[b] &&
+            this.board[a] === this.board[c] 
+          ) {
+            return this.board[a]; // Return winner 
+          }
+        }
+        return null;
       }
-    }
-
-    // Check columns
-    for (let i = 0; i < 3; i++) {
-      if (
-        [board[0][i], board[1][i], board[2][i]].every((cell) => cell === mark)
-      ) {
-        return true;
-      }
-    }
-
-    // Check diagonals
-    const diag1 = [board[0][0], board[1][1], board[2][2]];
-    const diag2 = [board[0][2], board[1][1], board[2][0]];
-    if (
-      diag1.every((cell) => cell === mark) ||
-      diag2.every((cell) => cell === mark)
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  function isBoardFull () {
-    return board.every(row => row.every(cell => cell !== null));
-  }
-
-  function printBoard () {
-    board.forEach(row => console.log(row.join(' | ')));
-  }
-
-  resetBoard();
-
-  return {
-    placeMark,
-    checkWin,
-    isBoardFull,
-    printBoard
+    };
   };
-})();
 
+  let currentPlayer = 'X';
+  let gameOver = false;
+  const board = gameBoard();
 
-const Player = (function (mark) {
-  return {
-    mark,
-  };
-})();
-
-
-const game = GameBoard;
-const player1 = Player('X');
-const player2 = Player('O');
-
-let currentPlayer = player1;
-
-const takeTurn = (row, col) => {
-  if (game.placeMark(row, col, currentPlayer.mark)) {
-    game.printBoard();
-    if (game.checkWin(currentPlayer.mark)) {
-      console.log(`Player ${currentPlayer.mark} wins`);
-    } else if (game.isBoardFull()) {
-      console.log(`Tie`);
-    } else {
-      currentPlayer = currentPlayer === player1 ? player2 : player1;
-      console.log(`Player ${currentPlayer.mark}'s turn`);
-    }
-  } else {
-    console.log(`Invalid move. Try again`);
+  const switchPlayer = () => {
+    currentPlayer =  currentPlayer === 'X' ? 'O' : 'X';
   }
-};
-
-game.printBoard();
-console.log(`Player ${currentPlayer.mark}'s turn`);
-
-
+});
