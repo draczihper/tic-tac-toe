@@ -64,12 +64,33 @@ const GameBoard = (function () {
   };
 })();
 
+const displayController = (function () {
+  const mainEl = document.createElement('div');
+  const choiceEl = document.createElement('div');
+  choiceEl.setAttribute('class', 'choice')
+  choiceEl.appendChild(choiceH3)
+  const choiceH3 = document.createElement('h3');
+  choiceH3.textContent = 'Player 1 choose your mark';
+  const choiceIconsDiv = document.createElement('div');
+  choiceIconsDiv.setAttribute('id', 'icons');
+  const xEl = document.createElement('div');
+  xEl.setAttribute('class','x');
+  const xELImg = document.createElement('img');
+  xELImg.src = 'close.png';
+  xEl.appendChild(xELImg);
+  const oEl = document.createElement('div');
+  oEl.setAttribute('class', 'o');
+  const oElImg = document.createElement('img');
+  oElImg.src = 'o.png';
+oEl.appendChild(oElImg);
+})();
+
 
 const Player = (function (mark) {
   return {
     mark,
   };
-})();
+});
 
 
 const game = GameBoard;
