@@ -1,3 +1,107 @@
+
+
+const displayController = (function () {
+  const mainEl = document.querySelector("#main");
+
+  const choiceEl = document.createElement("div");
+  choiceEl.setAttribute("class", "choice");
+
+  // Create h3 tag
+  const choiceH3 = document.createElement("h3");
+  choiceH3.textContent = "Player 1 choose your mark";
+
+  // Create a div to hold icons (X, O)
+  const choiceIconsDiv = document.createElement("div");
+  choiceIconsDiv.setAttribute("id", "icons");
+
+  // Create a div to hold 'X' mark image
+  const xEl = document.createElement("div");
+  xEl.setAttribute("class", "x-button");
+  xEl.value = "X";
+  const xELImg = document.createElement("img");
+  xELImg.src = "close.png";
+  xEl.appendChild(xELImg);
+
+  // create a div to hold 'O' mark image
+  const oEl = document.createElement("div");
+  oEl.setAttribute("class", "choice-button");
+  oEl.value = "O";
+  console.log(oEl.value);
+  const oElImg = document.createElement("img");
+  oElImg.src = "o.png";
+  oEl.appendChild(oElImg);
+
+  // Append X and O to choiceIconsDiv
+  choiceIconsDiv.appendChild(xEl);
+  choiceIconsDiv.appendChild(oEl);
+
+  // Append DOM content
+  mainEl.appendChild(choiceEl);
+  choiceEl.appendChild(choiceH3);
+  choiceEl.appendChild(choiceIconsDiv);
+
+  // Create and info div
+  const msgDiv = document.createElement('div');
+ msgDiv.setAttribute('id', 'msg');
+ const infoSpan = document.createElement('span');
+ infoSpan.setAttribute('id', 'info');
+ msgDiv.append(infoSpan);
+ mainEl.appendChild(msgDiv);
+
+  // Create the grid class
+  const gridContainer = document.createElement("div");
+  gridContainer.setAttribute("class", "grid");
+  gridContainer.innerHTML = `
+ <div class="mark-container one"></div>
+        <div class="mark-container two"></div>
+        <div class="mark-container three"></div>
+        <div class="mark-container four"></div>
+        <div class="mark-container five"></div>
+        <div class="mark-container six"></div>
+        <div class="mark-container seven"></div>
+        <div class="mark-container eight"></div>
+        <div class="mark-container nine"></div>
+ `;
+ mainEl.appendChild(gridContainer);
+ gridContainer.style.display = 'none';
+
+ let playerOneChoice;
+ let playerTwoChoice;
+
+
+ 
+  xEl.addEventListener("click", () => {
+    playerOneChoice = xEl.value;
+    playerTwoChoice = oEl.value
+    choiceEl.style.display = 'none';
+    gridContainer.style.display = '';
+    infoSpan.textContent = `Player 1 (${xEl.value}) begin play`;
+    console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
+
+  });
+
+  oEl.addEventListener("click", () => {
+    playerOneChoice = oEl.value;
+    playerTwoChoice = xEl.value
+    choiceEl.style.display = 'none';
+    gridContainer.style.display = '';
+    infoSpan.textContent = `Player 1 (${oEl.value}) begin play`;
+    console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
+  });
+
+  return {
+     get player1() {
+      return playerOneChoice;
+    },
+
+     get player2() {
+      return playerTwoChoice;
+    }
+  };
+
+})();
+
+
 const GameBoard = (function () {
   const board = [];
 
@@ -64,79 +168,17 @@ const GameBoard = (function () {
   };
 })();
 
-const displayController = (function () {
-  const mainEl = document.querySelector("#main");
 
-  const choiceEl = document.createElement("div");
-  choiceEl.setAttribute("class", "choice");
 
-  // Create h3 tag
-  const choiceH3 = document.createElement("h3");
-  choiceH3.textContent = "Player 1 choose your mark";
-
-  // Create a div to hold icons (X, O)
-  const choiceIconsDiv = document.createElement("div");
-  choiceIconsDiv.setAttribute("id", "icons");
-
-  // Create a div to hold 'X' mark image
-  const xEl = document.createElement("div");
-  xEl.setAttribute("class", "x-button");
-  xEl.value = "X";
-  const xELImg = document.createElement("img");
-  xELImg.src = "close.png";
-  xEl.appendChild(xELImg);
-
-  // create a div to hold 'O' mark image
-  const oEl = document.createElement("div");
-  oEl.setAttribute("class", "choice-button");
-  oEl.value = "O";
-  console.log(oEl.value);
-  const oElImg = document.createElement("img");
-  oElImg.src = "o.png";
-  oEl.appendChild(oElImg);
-
-  // Append X and O to choiceIconsDiv
-  choiceIconsDiv.appendChild(xEl);
-  choiceIconsDiv.appendChild(oEl);
-
-  // Append DOM content
-  mainEl.appendChild(choiceEl);
-  choiceEl.appendChild(choiceH3);
-  choiceEl.appendChild(choiceIconsDiv);
-
-  // Create the grid class
-  const gridContainer = createElement("div");
-  grid.setAttribute("class", "grid");
-  grid.innerHTML = `
- <div class="mark-container one"></div>
-        <div class="mark-container two"></div>
-        <div class="mark-container three"></div>
-        <div class="mark-container four"></div>
-        <div class="mark-container five"></div>
-        <div class="mark-container six"></div>
-        <div class="mark-container seven"></div>
-        <div class="mark-container eight"></div>
-        <div class="mark-container nine"></div>
- `;
-  xEl.addEventListener("click", () => {
-    console.log(xEl.value);
-    const player1 = Player(xEl.value);
-  });
-  oEl.addEventListener("click", () => {
-    console.log(oEl.value);
-    const player1 = Player(oEl.value);
-  });
-})();
-
-const Player = function (mark) {
-  return {
-    mark,
-  };
-};
+// const Player = function (mark) {
+//   return {
+//     mark,
+//   };
+// };
 
 const game = GameBoard;
-const player1 = Player("X");
-const player2 = Player("O");
+// const player1 = Player(`${displayController.playerOneChoice}`);
+// const player2 = Player(`${displayController.playerTwoChoice}`);
 
 let currentPlayer = player1;
 
