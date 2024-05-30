@@ -64,26 +64,60 @@ const GameBoard = (function () {
   };
 })();
 
+
+
 const displayController = (function () {
-  const mainEl = document.createElement('div');
+  const mainEl = document.querySelector('#main');
+
   const choiceEl = document.createElement('div');
   choiceEl.setAttribute('class', 'choice')
-  choiceEl.appendChild(choiceH3)
+  
+  // Create h3 tag
   const choiceH3 = document.createElement('h3');
   choiceH3.textContent = 'Player 1 choose your mark';
+  
+  // Create a div to hold icons (X, O)
   const choiceIconsDiv = document.createElement('div');
   choiceIconsDiv.setAttribute('id', 'icons');
+  
+  // Create a div to hold 'X' mark image
   const xEl = document.createElement('div');
-  xEl.setAttribute('class','x');
+  xEl.setAttribute('class','x-button');
+  xEl.value = 'X';
   const xELImg = document.createElement('img');
   xELImg.src = 'close.png';
   xEl.appendChild(xELImg);
+  
+  // create a div to hold 'O' mark image
   const oEl = document.createElement('div');
-  oEl.setAttribute('class', 'o');
+  oEl.setAttribute('class', 'choice-button');
+  oEl.value = 'O';
+  console.log(oEl.value);
   const oElImg = document.createElement('img');
   oElImg.src = 'o.png';
-oEl.appendChild(oElImg);
+  oEl.appendChild(oElImg);
+  
+  // Append X and O to choiceIconsDiv
+  choiceIconsDiv.appendChild(xEl);
+  choiceIconsDiv.appendChild(oEl);
+  
+  // Append DOM content
+  mainEl.appendChild(choiceEl);
+  choiceEl.appendChild(choiceH3);
+  choiceEl.appendChild(choiceIconsDiv);
+
+ 
+  xEl.addEventListener('click', () => {
+    console.log(xEl.value);
+  });
+  oEl.addEventListener('click', () => {
+    console.log(oEl.value);
+  })
+
+
 })();
+
+
 
 
 const Player = (function (mark) {
