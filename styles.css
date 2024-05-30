@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h3 {
+    margin-bottom: 20px;
+}
+
+#icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#icons > div{
+    display: inline-flex;
+    width: 50px;
+    align-items: center;
+    justify-content: center;
+    background-color: hsl(195, 53%, 79%);
+    padding: 5px 40px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+#icons > div:hover {
+    cursor: pointer;
+    background-color: hsl(210, 80%, 50%);
+}
+
+#icons > div:active {
+    background-color: hsla(210, 80%, 50%, 0.5);
+}
+
+
+img {
+    width: 20px;
+}
+
+.grid {
+   display: grid;
+   grid-template-columns: repeat(3, 100px);
+   grid-template-rows: repeat(3, 100px);
+   background-color: hsla(195, 53%, 79%, 0.5);
+}
+
+.mark-container {
+
+}
+
+.two, .five, .eight {
+    border-right: 3px solid black;
+    border-left: 3px solid black;
+}
+
+.four, .five, .six {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;   
+}
+

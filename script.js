@@ -46,12 +46,12 @@ const GameBoard = (function () {
     return false;
   }
 
-  function isBoardFull () {
-    return board.every(row => row.every(cell => cell !== null));
+  function isBoardFull() {
+    return board.every((row) => row.every((cell) => cell !== null));
   }
 
-  function printBoard () {
-    board.forEach(row => console.log(row.join(' | ')));
+  function printBoard() {
+    board.forEach((row) => console.log(row.join(" | ")));
   }
 
   resetBoard();
@@ -60,76 +60,83 @@ const GameBoard = (function () {
     placeMark,
     checkWin,
     isBoardFull,
-    printBoard
+    printBoard,
   };
 })();
 
-
-
 const displayController = (function () {
-  const mainEl = document.querySelector('#main');
+  const mainEl = document.querySelector("#main");
 
-  const choiceEl = document.createElement('div');
-  choiceEl.setAttribute('class', 'choice')
-  
+  const choiceEl = document.createElement("div");
+  choiceEl.setAttribute("class", "choice");
+
   // Create h3 tag
-  const choiceH3 = document.createElement('h3');
-  choiceH3.textContent = 'Player 1 choose your mark';
-  
+  const choiceH3 = document.createElement("h3");
+  choiceH3.textContent = "Player 1 choose your mark";
+
   // Create a div to hold icons (X, O)
-  const choiceIconsDiv = document.createElement('div');
-  choiceIconsDiv.setAttribute('id', 'icons');
-  
+  const choiceIconsDiv = document.createElement("div");
+  choiceIconsDiv.setAttribute("id", "icons");
+
   // Create a div to hold 'X' mark image
-  const xEl = document.createElement('div');
-  xEl.setAttribute('class','x-button');
-  xEl.value = 'X';
-  const xELImg = document.createElement('img');
-  xELImg.src = 'close.png';
+  const xEl = document.createElement("div");
+  xEl.setAttribute("class", "x-button");
+  xEl.value = "X";
+  const xELImg = document.createElement("img");
+  xELImg.src = "close.png";
   xEl.appendChild(xELImg);
-  
+
   // create a div to hold 'O' mark image
-  const oEl = document.createElement('div');
-  oEl.setAttribute('class', 'choice-button');
-  oEl.value = 'O';
+  const oEl = document.createElement("div");
+  oEl.setAttribute("class", "choice-button");
+  oEl.value = "O";
   console.log(oEl.value);
-  const oElImg = document.createElement('img');
-  oElImg.src = 'o.png';
+  const oElImg = document.createElement("img");
+  oElImg.src = "o.png";
   oEl.appendChild(oElImg);
-  
+
   // Append X and O to choiceIconsDiv
   choiceIconsDiv.appendChild(xEl);
   choiceIconsDiv.appendChild(oEl);
-  
+
   // Append DOM content
   mainEl.appendChild(choiceEl);
   choiceEl.appendChild(choiceH3);
   choiceEl.appendChild(choiceIconsDiv);
 
- 
-  xEl.addEventListener('click', () => {
+  // Create the grid class
+  const gridContainer = createElement("div");
+  grid.setAttribute("class", "grid");
+  grid.innerHTML = `
+ <div class="mark-container one"></div>
+        <div class="mark-container two"></div>
+        <div class="mark-container three"></div>
+        <div class="mark-container four"></div>
+        <div class="mark-container five"></div>
+        <div class="mark-container six"></div>
+        <div class="mark-container seven"></div>
+        <div class="mark-container eight"></div>
+        <div class="mark-container nine"></div>
+ `;
+  xEl.addEventListener("click", () => {
     console.log(xEl.value);
+    const player1 = Player(xEl.value);
   });
-  oEl.addEventListener('click', () => {
+  oEl.addEventListener("click", () => {
     console.log(oEl.value);
-  })
-
-
+    const player1 = Player(oEl.value);
+  });
 })();
 
-
-
-
-const Player = (function (mark) {
+const Player = function (mark) {
   return {
     mark,
   };
-});
-
+};
 
 const game = GameBoard;
-const player1 = Player('X');
-const player2 = Player('O');
+const player1 = Player("X");
+const player2 = Player("O");
 
 let currentPlayer = player1;
 
@@ -151,5 +158,3 @@ const takeTurn = (row, col) => {
 
 game.printBoard();
 console.log(`Player ${currentPlayer.mark}'s turn`);
-
-
