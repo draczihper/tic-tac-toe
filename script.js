@@ -1,141 +1,268 @@
-const allEqual
- = arr => arr.every(v => v !== " " &&  v === arr[0]);
-const readline = require("readline");
-const board = [
-  [" ", " ", " "],
-  [" ", " ", " "],
-  [" ", " ", " "],
-];
 
-let m = [];
-let turn = true;
-let combo = {
-  row: undefined,
-  col: undefined
+
+const displayController = (function () {
+  const mainEl = document.querySelector("#main");
+
+ /* 
+ IF YOU WANT START AND RESTART FUNCTIONALITY JUST USE REFRESH. I HAVE COMMENTED THIS PART BECAUSE I DON'T WANT TO STYLE THE BUTTONS.
+ 
+  // Create start button
+  const startBtn = document.createElement("button");
+  startBtn.textContent = "Start Game";
+  startBtn.addEventListener("click", () => {
+    choiceEl.style.display = "flex"; // Show the mark choice section
+    gridContainer.style.display = "none"; // Hide the game grid
+    msgDiv.style.display = "none"; // Hide the message section
+  });
+  mainEl.appendChild(startBtn);
+
+  // Create restart button
+  const restartBtn = document.createElement("button");
+  restartBtn.textContent = "Restart Game";
+  restartBtn.addEventListener("click", () => {
+    gridContainer.querySelectorAll(".mark-container img").forEach((img) => img.remove()); // Remove all marks from the grid
+    GameBoard.resetBoard(); // Reset the game board
+    initializePlayers(); // Initialize players again
+    gameActive = true; // Set game active
+    document.getElementById("info").textContent = `Player 1 (${playerOneChoice}) begin play`; // Set info message
+  });
+  mainEl.appendChild(restartBtn);
+
+  */
+
+  const choiceEl = document.createElement("div");
+  choiceEl.setAttribute("class", "choice");
+
+  // Create h3 tag
+  const choiceH3 = document.createElement("h3");
+  choiceH3.textContent = "Player 1 choose your mark";
+
+  // Create a div to hold icons (X, O)
+  const choiceIconsDiv = document.createElement("div");
+  choiceIconsDiv.setAttribute("id", "icons");
+
+  // Create a div to hold 'X' mark image
+  const xEl = document.createElement("div");
+  xEl.setAttribute("class", "x-button");
+  xEl.value = "X";
+  const xELImg = document.createElement("img");
+  xELImg.src = "close.png";
+  xEl.appendChild(xELImg);
+
+  // create a div to hold 'O' mark image
+  const oEl = document.createElement("div");
+  oEl.setAttribute("class", "choice-button");
+  oEl.value = "O";
+  console.log(oEl.value);
+  const oElImg = document.createElement("img");
+  oElImg.src = "o.png";
+  oEl.appendChild(oElImg);
+
+  // Append X and O to choiceIconsDiv
+  choiceIconsDiv.appendChild(xEl);
+  choiceIconsDiv.appendChild(oEl);
+
+  // Append DOM content
+  mainEl.appendChild(choiceEl);
+  choiceEl.appendChild(choiceH3);
+  choiceEl.appendChild(choiceIconsDiv);
+
+  // Create and info div
+  const msgDiv = document.createElement('div');
+ msgDiv.setAttribute('id', 'msg');
+ const infoSpan = document.createElement('span');
+ infoSpan.setAttribute('id', 'info');
+ msgDiv.append(infoSpan);
+ mainEl.appendChild(msgDiv);
+
+  // Create the grid class
+  const gridContainer = document.createElement("div");
+  gridContainer.setAttribute("class", "grid");
+  gridContainer.innerHTML = `
+ <div class="mark-container one"></div>
+        <div class="mark-container two"></div>
+        <div class="mark-container three"></div>
+        <div class="mark-container four"></div>
+        <div class="mark-container five"></div>
+        <div class="mark-container six"></div>
+        <div class="mark-container seven"></div>
+        <div class="mark-container eight"></div>
+        <div class="mark-container nine"></div>
+ `;
+ mainEl.appendChild(gridContainer);
+ gridContainer.style.display = 'none';
+
+ let playerOneChoice;
+ let playerTwoChoice;
+ let currentPlayer;
+ let players = {};
+ let gameActive = true; // Game state variable
+
+ function initializePlayers() {
+  players.player1 = { mark: playerOneChoice };
+  players.player2 = { mark: playerTwoChoice };
+  currentPlayer = players.player1;
+    gameActive = true;
 }
-let winner = "";
-let gameOver = false;
+ 
+  xEl.addEventListener("click", () => {
+    playerOneChoice = xEl.value;
+    playerTwoChoice = oEl.value
+    choiceEl.style.display = 'none';
+    gridContainer.style.display = '';
+    initializePlayers();
+    infoSpan.textContent = `Player 1 (${xEl.value}) begin play`;
+    console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
+
+  });
+
+  oEl.addEventListener("click", () => {
+    playerOneChoice = oEl.value;
+    playerTwoChoice = xEl.value
+    choiceEl.style.display = 'none';
+    gridContainer.style.display = '';
+    initializePlayers();
+    infoSpan.textContent = `Player 1 (${oEl.value}) begin play`;
+    console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
+  });
+
+  // Initialize the game board array
+  const gameBoard = ['', '', '', '', '', '', '', '', ''];
 
 
-
-const game = {
-  update: function() {
-    this.isGameOver();
-    if(gameOver) {
-      this.updateBoard();
-      console.log(`Game over ${winner} won!`)
-      process.exit();
+  function takeTurn(index, container) {
+    if (!gameActive) {
+      console.log("Game is over. No more moves allowed.");
+      return;
     }
-    this.updateBoard();
-    m = this.possibleMoves();
-    if(m.length === 0) {
-      gameOver = true;
-      console.log("Game over by draw")
-      process.exit();
-    }
-  },
-  isGameOver: function() {
-    if(allEqual
-      (board[0])){
-      gameOver = true;
-  winner = board[0][0]
-
-}
-if(allEqual
-  (board[1])){
-      gameOver = true;
-winner = board[1][0]
-
-}
-if(allEqual
-  (board[2])){
-          gameOver = true;
-winner = board[2][0]
-
-}
-
-if(allEqual
-  ([board[0][0], board[1][0], board[2][0]])){
-        gameOver = true;
- winner = board[0][0]
-}
-if(allEqual
-  ([board[0][1], board[1][1], board[2][1]])){
-        gameOver = true;
-winner = board[0][1]
-}
-if(allEqual
-  ([board[0][2], board[1][2], board[2][2]])){
-        gameOver = true;
-winner = board[0][2]
-}
- if(allEqual
-  ([board[0][0], board[1][1], board[2][2]])){
-        gameOver = true;
-winner = board[0][0]
-}
-   if(allEqual
-    ([board[0][2], board[1][1], board[2][0]])){
-        gameOver = true;
- winner = board[0][2]
-}
-  },
-  move: function(c) {
-    board[+c.row][+c.col] = "x";
-    combo.row = undefined;
-    combo.col = undefined;
-    this.update();
-    setTimeout(() => {
-      this.computer();
-    }, 3000);
-  },
-  possibleMoves: function() {
-    const p = [];
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[0].length; j++){
-        if (board[i][j] === " ") {
-          p.push({row: i, col: i});
-        }
-      }
-    }
-    return p;
-  },
-  computer: function() {
-    console.log(m);
-    if(m.length > 0) {
-      let ra = Math.round(Math.random() * (m.length - 1));
-      board[m[ra].row][m[ra].col] = "O"
-    }
-    turn = true;
-    this.update();
-    console.log("Your turn");
-  }, 
-  updateBoard: function() {
-    console.log(" ");
-    board.forEach((arr, i) => {
-      console.log(arr.toString().replace(/,/g, "|"));
-    });
-  },
-}
-
-readline.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
-
-process.stdin.on('keypress', (str, key) => {
-  if (key.ctrl && key.name === 'c') {
-    process.exit();
-  } else {
-    if(turn) {
-      if(combo.row){
-        combo.col = key.name;
-        turn = false;
-        game.move(combo)
+    const row = Math.floor(index / 3);
+    const col = index % 3;
+    if (GameBoard.placeMark(row, col, currentPlayer.mark)) {
+      // Update the game board array
+      gameBoard[index] = currentPlayer.mark;
+  
+      // Create and add the mark image to the clicked container
+      const markImg = document.createElement("img");
+      markImg.src = currentPlayer.mark === 'X' ? "close.png" : "o.png";
+      container.appendChild(markImg);
+  
+      GameBoard.printBoard();
+      if (GameBoard.checkWin(currentPlayer.mark)) {
+        console.log(`Player ${currentPlayer.mark} wins`);
+        document.getElementById('info').textContent = `Player ${currentPlayer.mark} wins!`;
+        gameActive = false; // Set the game state to inactive
+      } else if (GameBoard.isBoardFull()) {
+        console.log(`Tie`);
+        document.getElementById('info').textContent = `It's a tie!`;
+        gameActive = false // Set the game state to inactive
       } else {
-        combo.row = key.name;
+        currentPlayer = currentPlayer === players.player1 ? players.player2 : players.player1;
+        console.log(`Player ${currentPlayer.mark}'s turn`);
+        document.getElementById('info').textContent = `Player (${currentPlayer.mark}) turn`;
       }
     } else {
-      console.log("Wait for your turn");
-      
+      console.log(`Invalid move. Try again`);
     }
   }
-});
+
+  const markContainers = gridContainer.querySelectorAll('.mark-container')
+  markContainers.forEach((container, index) => {
+    container.addEventListener('click', () => {
+      if (!playerOneChoice || !playerTwoChoice) {
+        console.log("Players have not chosen their marks yet.");
+        return;
+      }
+      // Check the cell if is occupied 
+      if (gameBoard[index] === '') {
+        // Call takeTurn to handle the game logic and UI updates
+        takeTurn(index, container);
+      } else {
+        console.log(`Cell is already occupied`);
+      }
+      
+    });
+  });
+  
+
+  return {
+     getPlayer1: function() {
+      return playerOneChoice;
+    },
+     getPlayer2: function() {
+      return playerTwoChoice;
+    },
+    initializePlayers: initializePlayers
+  };
+
+})();
+
+
+const GameBoard = (function () {
+  const board = [];
+
+  function resetBoard() {
+    board.length = 0;
+    for (let i = 0; i < 3; i++) {
+      board[i] = new Array(3).fill(null);
+    }
+  }
+
+  function placeMark(row, col, mark) {
+    if (board[row][col] === null) {
+      board[row][col] = mark;
+      return true;
+    }
+    return false;
+  }
+
+  function checkWin(mark) {
+    // Check rows
+    for (let i = 0; i < 3; i++) {
+      if (board[i].every((cell) => cell === mark)) {
+        return true;
+      }
+    }
+
+    // Check columns
+    for (let i = 0; i < 3; i++) {
+      if (
+        [board[0][i], board[1][i], board[2][i]].every((cell) => cell === mark)
+      ) {
+        return true;
+      }
+    }
+
+    // Check diagonals
+    const diag1 = [board[0][0], board[1][1], board[2][2]];
+    const diag2 = [board[0][2], board[1][1], board[2][0]];
+    if (
+      diag1.every((cell) => cell === mark) ||
+      diag2.every((cell) => cell === mark)
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function isBoardFull() {
+    return board.every((row) => row.every((cell) => cell !== null));
+  }
+
+  function printBoard() {
+    board.forEach((row) => console.log(row.join(" | ")));
+  }
+
+  resetBoard();
+
+  return {
+    placeMark,
+    checkWin,
+    isBoardFull,
+    printBoard,
+  };
+})();
+
+
+
+GameBoard.printBoard();

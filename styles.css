@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+  position: absolute;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px
+}
+
+.choice {
+    width: 300px;
+    position: absolute;
+    z-index: 99;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+#icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+#icons > div {
+  display: inline-flex;
+  width: 50px;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(195, 53%, 79%);
+  padding: 5px 40px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+#icons > div:hover {
+  cursor: pointer;
+  background-color: hsl(210, 80%, 50%);
+}
+
+#icons > div:active {
+  background-color: hsla(210, 80%, 50%, 0.5);
+}
+
+img {
+  width: 20px;
+}
+
+#info {
+    font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  width: 300px;
+  border-radius: 5px;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  background-color: hsla(195, 53%, 79%, 0.5);
+}
+
+.mark-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mark-container:hover {
+  background-color: hsl(210, 80%, 50%);
+}
+
+.mark-container:active {
+  background-color: hsla(210, 80%, 50%, 0.5);
+}
+
+.one:hover {
+  border-top-left-radius: 5px;
+}
+
+.three:hover {
+  border-top-right-radius: 5px;
+}
+
+.seven:hover {
+  border-bottom-left-radius: 5px;
+}
+
+.nine:hover {
+  border-bottom-right-radius: 5px;
+}
+
+
+.mark-container > img {
+  width: 50px;
+}
+
+.two,
+.five,
+.eight {
+  border-right: 3px solid black;
+  border-left: 3px solid black;
+}
+
+.four,
+.five,
+.six {
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
