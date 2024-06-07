@@ -67,6 +67,14 @@ const displayController = (function () {
 
  let playerOneChoice;
  let playerTwoChoice;
+ let currentPlayer;
+ let players = {}
+
+ function initializePlayers() {
+  players.player1 = { mark: playerOneChoice };
+  players.player2 = { mark: playerTwoChoice };
+  currentPlayer = players.player1;
+}
 
 
  
@@ -75,6 +83,7 @@ const displayController = (function () {
     playerTwoChoice = oEl.value
     choiceEl.style.display = 'none';
     gridContainer.style.display = '';
+    initializePlayers();
     infoSpan.textContent = `Player 1 (${xEl.value}) begin play`;
     console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
 
@@ -85,18 +94,70 @@ const displayController = (function () {
     playerTwoChoice = xEl.value
     choiceEl.style.display = 'none';
     gridContainer.style.display = '';
+    initializePlayers();
     infoSpan.textContent = `Player 1 (${oEl.value}) begin play`;
     console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
   });
 
+  // Initialize the game board array
+  const gameBoard = ['', '', '', '', '', '', '', '', ''];
+
+  function takeTurn(index, container) {
+    const row = Math.floor(index / 3);
+    const col = index % 3;
+    if (GameBoard.placeMark(row, col, currentPlayer.mark)) {
+      // Update the game board array
+      gameBoard[index] = currentPlayer.mark;
+  
+      // Create and add the mark image to the clicked container
+      const markImg = document.createElement("img");
+      markImg.src = currentPlayer.mark === 'X' ? "close.png" : "o.png";
+      container.appendChild(markImg);
+  
+      GameBoard.printBoard();
+      if (GameBoard.checkWin(currentPlayer.mark)) {
+        console.log(`Player ${currentPlayer.mark} wins`);
+        document.getElementById('info').textContent = `Player ${currentPlayer.mark} wins!`;
+      } else if (GameBoard.isBoardFull()) {
+        console.log(`Tie`);
+        document.getElementById('info').textContent = `It's a tie!`;
+      } else {
+        currentPlayer = currentPlayer === players.player1 ? players.player2 : players.player1;
+        console.log(`Player ${currentPlayer.mark}'s turn`);
+        document.getElementById('info').textContent = `Player (${currentPlayer.mark}) turn`;
+      }
+    } else {
+      console.log(`Invalid move. Try again`);
+    }
+  }
+
+  const markContainers = gridContainer.querySelectorAll('.mark-container')
+  markContainers.forEach((container, index) => {
+    container.addEventListener('click', () => {
+      if (!playerOneChoice || !playerTwoChoice) {
+        console.log("Players have not chosen their marks yet.");
+        return;
+      }
+      // Check the cell if is occupied 
+      if (gameBoard[index] === '') {
+        // Call takeTurn to handle the game logic and UI updates
+        takeTurn(index, container);
+      } else {
+        console.log(`Cell is already occupied`);
+      }
+      
+    });
+  });
+  
+
   return {
-     get player1() {
+     getPlayer1: function() {
       return playerOneChoice;
     },
-
-     get player2() {
+     getPlayer2: function() {
       return playerTwoChoice;
-    }
+    },
+    initializePlayers: initializePlayers
   };
 
 })();
@@ -170,33 +231,4 @@ const GameBoard = (function () {
 
 
 
-// const Player = function (mark) {
-//   return {
-//     mark,
-//   };
-// };
-
-const game = GameBoard;
-// const player1 = Player(`${displayController.playerOneChoice}`);
-// const player2 = Player(`${displayController.playerTwoChoice}`);
-
-let currentPlayer = player1;
-
-const takeTurn = (row, col) => {
-  if (game.placeMark(row, col, currentPlayer.mark)) {
-    game.printBoard();
-    if (game.checkWin(currentPlayer.mark)) {
-      console.log(`Player ${currentPlayer.mark} wins`);
-    } else if (game.isBoardFull()) {
-      console.log(`Tie`);
-    } else {
-      currentPlayer = currentPlayer === player1 ? player2 : player1;
-      console.log(`Player ${currentPlayer.mark}'s turn`);
-    }
-  } else {
-    console.log(`Invalid move. Try again`);
-  }
-};
-
-game.printBoard();
-console.log(`Player ${currentPlayer.mark}'s turn`);
+GameBoard.printBoard();
