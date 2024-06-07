@@ -3,6 +3,33 @@
 const displayController = (function () {
   const mainEl = document.querySelector("#main");
 
+ /* 
+ IF YOU WANT START AND RESTART FUNCTIONALITY JUST USE REFRESH. I HAVE COMMENTED THIS PART BECAUSE I DON'T WANT TO STYLE THE BUTTONS.
+ 
+  // Create start button
+  const startBtn = document.createElement("button");
+  startBtn.textContent = "Start Game";
+  startBtn.addEventListener("click", () => {
+    choiceEl.style.display = "flex"; // Show the mark choice section
+    gridContainer.style.display = "none"; // Hide the game grid
+    msgDiv.style.display = "none"; // Hide the message section
+  });
+  mainEl.appendChild(startBtn);
+
+  // Create restart button
+  const restartBtn = document.createElement("button");
+  restartBtn.textContent = "Restart Game";
+  restartBtn.addEventListener("click", () => {
+    gridContainer.querySelectorAll(".mark-container img").forEach((img) => img.remove()); // Remove all marks from the grid
+    GameBoard.resetBoard(); // Reset the game board
+    initializePlayers(); // Initialize players again
+    gameActive = true; // Set game active
+    document.getElementById("info").textContent = `Player 1 (${playerOneChoice}) begin play`; // Set info message
+  });
+  mainEl.appendChild(restartBtn);
+
+  */
+
   const choiceEl = document.createElement("div");
   choiceEl.setAttribute("class", "choice");
 
@@ -68,15 +95,15 @@ const displayController = (function () {
  let playerOneChoice;
  let playerTwoChoice;
  let currentPlayer;
- let players = {}
+ let players = {};
+ let gameActive = true; // Game state variable
 
  function initializePlayers() {
   players.player1 = { mark: playerOneChoice };
   players.player2 = { mark: playerTwoChoice };
   currentPlayer = players.player1;
+    gameActive = true;
 }
-
-
  
   xEl.addEventListener("click", () => {
     playerOneChoice = xEl.value;
@@ -102,7 +129,12 @@ const displayController = (function () {
   // Initialize the game board array
   const gameBoard = ['', '', '', '', '', '', '', '', ''];
 
+
   function takeTurn(index, container) {
+    if (!gameActive) {
+      console.log("Game is over. No more moves allowed.");
+      return;
+    }
     const row = Math.floor(index / 3);
     const col = index % 3;
     if (GameBoard.placeMark(row, col, currentPlayer.mark)) {
@@ -118,9 +150,11 @@ const displayController = (function () {
       if (GameBoard.checkWin(currentPlayer.mark)) {
         console.log(`Player ${currentPlayer.mark} wins`);
         document.getElementById('info').textContent = `Player ${currentPlayer.mark} wins!`;
+        gameActive = false; // Set the game state to inactive
       } else if (GameBoard.isBoardFull()) {
         console.log(`Tie`);
         document.getElementById('info').textContent = `It's a tie!`;
+        gameActive = false // Set the game state to inactive
       } else {
         currentPlayer = currentPlayer === players.player1 ? players.player2 : players.player1;
         console.log(`Player ${currentPlayer.mark}'s turn`);
