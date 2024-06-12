@@ -2,10 +2,9 @@
 
 const displayController = (function () {
   const mainEl = document.querySelector("#main");
+  const buttonsDiv = document.querySelector('#buttons');
 
- /* 
- IF YOU WANT START AND RESTART FUNCTIONALITY JUST USE REFRESH. I HAVE COMMENTED THIS PART BECAUSE I DON'T WANT TO STYLE THE BUTTONS.
- 
+
   // Create start button
   const startBtn = document.createElement("button");
   startBtn.textContent = "Start Game";
@@ -27,8 +26,6 @@ const displayController = (function () {
     document.getElementById("info").textContent = `Player 1 (${playerOneChoice}) begin play`; // Set info message
   });
   mainEl.appendChild(restartBtn);
-
-  */
 
   const choiceEl = document.createElement("div");
   choiceEl.setAttribute("class", "choice");
