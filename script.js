@@ -13,7 +13,7 @@ const displayController = (function () {
     gridContainer.style.display = "none"; // Hide the game grid
     msgDiv.style.display = "none"; // Hide the message section
   });
-  mainEl.appendChild(startBtn);
+  buttonsDiv.appendChild(startBtn);
 
   // Create restart button
   const restartBtn = document.createElement("button");
