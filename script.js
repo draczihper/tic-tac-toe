@@ -25,7 +25,7 @@ const displayController = (function () {
     gameActive = true; // Set game active
     document.getElementById("info").textContent = `Player 1 (${playerOneChoice}) begin play`; // Set info message
   });
-  mainEl.appendChild(restartBtn);
+  buttonsDiv.appendChild(restartBtn);
 
   const choiceEl = document.createElement("div");
   choiceEl.setAttribute("class", "choice");
