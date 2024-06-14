@@ -27,6 +27,12 @@ main {
   top: 20vh;
 }
 
+button {
+  all: unset;
+  
+  margin-right: 10px;
+}
+
 .choice {
     width: 300px;
     position: absolute;
