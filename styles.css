@@ -29,7 +29,8 @@ main {
 
 button {
   all: unset;
-  
+  background-color: hsl(195, 53%, 79%);
+  padding: 5px 40px;
   margin-right: 10px;
 }
 
