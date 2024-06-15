@@ -30,10 +30,11 @@ main {
 button {
   all: unset;
   background-color: hsl(195, 53%, 79%);
-  padding: 5px 15px;
+  padding: 8px 15px;
   margin-right: 10px;
   border-radius: 5px;
   font-weight: 700;
+  font-family: sans-serif;
 }
 
 .choice {
