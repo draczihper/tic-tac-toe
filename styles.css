@@ -37,6 +37,11 @@ button {
   font-family: sans-serif;
 }
 
+button:hover {
+  cursor: pointer;
+  background-color: hsl(210, 80%, 50%);
+}
+
 .choice {
     width: 300px;
     position: absolute;
