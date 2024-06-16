@@ -42,6 +42,10 @@ button:hover {
   background-color: hsl(210, 80%, 50%);
 }
 
+button:active {
+    background-color: hsla(210, 80%, 50%, 0.5);
+}
+
 .choice {
     width: 300px;
     position: absolute;
