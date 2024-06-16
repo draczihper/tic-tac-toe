@@ -3,13 +3,14 @@
 const displayController = (function () {
   const mainEl = document.querySelector("#main");
   const buttonsDiv = document.querySelector('#buttons');
+  mainEl.appendChild(buttonsDiv);
 
 
   // Create start button
   const startBtn = document.createElement("button");
   startBtn.textContent = "Start Game";
   startBtn.addEventListener("click", () => {
-    choiceEl.style.display = "flex"; // Show the mark choice section
+    choiceEl.style.display = ""; // Show the mark choice section
     gridContainer.style.display = "none"; // Hide the game grid
     msgDiv.style.display = "none"; // Hide the message section
   });
@@ -63,6 +64,8 @@ const displayController = (function () {
   mainEl.appendChild(choiceEl);
   choiceEl.appendChild(choiceH3);
   choiceEl.appendChild(choiceIconsDiv);
+  choiceEl.style.display = "none";
+
 
   // Create and info div
   const msgDiv = document.createElement('div');
