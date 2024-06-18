@@ -4,6 +4,7 @@ const displayController = (function () {
   const mainEl = document.querySelector("#main");
   const buttonsDiv = document.querySelector('#buttons');
   mainEl.appendChild(buttonsDiv);
+  
 
 
   // Create start button
@@ -13,6 +14,10 @@ const displayController = (function () {
     choiceEl.style.display = ""; // Show the mark choice section
     gridContainer.style.display = "none"; // Hide the game grid
     msgDiv.style.display = "none"; // Hide the message section
+    buttonsDiv.style = `
+    position: fixed;
+    top: -20vh;
+    `
   });
   buttonsDiv.appendChild(startBtn);
 
@@ -266,3 +271,4 @@ const GameBoard = (function () {
 
 
 GameBoard.printBoard();
+
