@@ -15,7 +15,7 @@ const displayController = (function () {
     gridContainer.style.display = "none"; // Hide the game grid
     msgDiv.style.display = "none"; // Hide the message section
     buttonsDiv.style = `
-    position: fixed;
+    position: relative;
     top: -20vh;
     `
   });
