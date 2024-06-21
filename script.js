@@ -5,6 +5,7 @@ const displayController = (function () {
   const buttonsDiv = document.querySelector('#buttons');
   mainEl.appendChild(buttonsDiv);
   
+  
 
 
   // Create start button
@@ -17,7 +18,7 @@ const displayController = (function () {
     buttonsDiv.style = `
     position: relative;
     top: -20vh;
-    `
+    `;
   });
   buttonsDiv.appendChild(startBtn);
 
@@ -118,7 +119,9 @@ xEl.addEventListener("click", () => {
   initializePlayers();
   infoSpan.textContent = `Player 1 (${xEl.value}) begin play`;
   console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
-
+  buttonsDiv.style = `
+  position: relative;
+  `
 });
 
 oEl.addEventListener("click", () => {
@@ -129,6 +132,9 @@ oEl.addEventListener("click", () => {
   initializePlayers();
   infoSpan.textContent = `Player 1 (${oEl.value}) begin play`;
   console.log(`Player 1 choice is ${playerOneChoice} and player 2 is ${playerTwoChoice}`);
+  buttonsDiv.style = `
+  position: relative;
+  `
 });
 
   // Initialize the game board array
