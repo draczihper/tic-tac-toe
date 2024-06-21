@@ -28,6 +28,7 @@ const displayController = (function () {
   restartBtn.addEventListener("click", () => {
     gridContainer.querySelectorAll(".mark-container img").forEach((img) => img.remove()); // Remove all marks from the grid
     GameBoard.resetBoard(); // Reset the game board
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
     initializePlayers(); // Initialize players again
     gameActive = true; // Set game active
     document.getElementById("info").textContent = `Player 1 (${playerOneChoice}) begin play`; // Set info message
@@ -138,7 +139,7 @@ oEl.addEventListener("click", () => {
 });
 
   // Initialize the game board array
-const gameBoard = ['', '', '', '', '', '', '', '', ''];
+let gameBoard = ['', '', '', '', '', '', '', '', ''];
 
 
 function takeTurn(index, container) {
@@ -176,6 +177,7 @@ function takeTurn(index, container) {
     }
   }
 
+function addMarkContainers() {
   const markContainers = gridContainer.querySelectorAll('.mark-container')
   markContainers.forEach((container, index) => {
     container.addEventListener('click', () => {
@@ -193,7 +195,7 @@ function takeTurn(index, container) {
       
     });
   });
-  
+  }
 
   return {
    getPlayer1: function() {
@@ -202,7 +204,8 @@ function takeTurn(index, container) {
   getPlayer2: function() {
     return playerTwoChoice;
   },
-  initializePlayers: initializePlayers
+  initializePlayers: initializePlayers,
+  addMarkContainers: addMarkContainers
 };
 
 })();
@@ -212,6 +215,7 @@ const GameBoard = (function () {
   const board = [];
 
   function resetBoard() {
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
     board.length = 0;
     for (let i = 0; i < 3; i++) {
       board[i] = new Array(3).fill(null);
@@ -267,6 +271,7 @@ function printBoard() {
 resetBoard();
 
 return {
+  resetBoard,
   placeMark,
   checkWin,
   isBoardFull,
